@@ -20,6 +20,13 @@ def root():
     return {"message": "Welcome to Demo"}
 
 app.include_router(image_router)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods
+    allow_headers=["*"],  # Allow all headers
+)
 
 @image_router.websocket("/detect")
 async def detect_image(websocket: WebSocket, url: str):
